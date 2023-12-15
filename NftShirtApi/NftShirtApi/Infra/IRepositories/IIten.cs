@@ -1,4 +1,4 @@
 namespace  NftShirt.Server.Infra.IRepositories;
-public interface IIten{
+public interface IItenRepository{
 
 }

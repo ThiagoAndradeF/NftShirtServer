@@ -25,11 +25,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-builder.Services.AddScoped<ICollection, Collection>();
-builder.Services.AddScoped<IIten, Iten>();
-builder.Services.AddScoped<INft, Nft>();
-builder.Services.AddScoped<IUser, User>();
-builder.Services.AddScoped<INFtag, NFtag>();
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+builder.Services.AddScoped<IItenRepository, ItenRepository>();
+builder.Services.AddScoped<INftRepository, NftRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<INftagRepository, NftagRepository>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
