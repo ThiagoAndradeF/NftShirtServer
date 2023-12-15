@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\NftShirt.Server",
+    "\\NftShirt.Server\\Data",
+    "\\NftShirt.Server\\Data\\DbContext",
+    "\\NftShirt.Server\\Data\\Entities"
+  ],
+  "SelectedNode": "\\NftShirt.sln",
+  "PreviewInSolutionExplorer": false
+}

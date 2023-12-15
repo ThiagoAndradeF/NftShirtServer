@@ -1,0 +1,6 @@
+@NftShirtApi_HostAddress = http://localhost:5286
+
+GET {{NftShirtApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
