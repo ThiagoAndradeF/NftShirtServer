@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MXnmg/2Z8germPiYWKeVgKumy0YoFsIt/byByYzCAAVoK3T43M4E22fKmZVtUCgBQIgEUqb12WCz/4o8OJ9aXg==",
+  "dgSpecHash": "rhSMQDtK+Ov2V0byC5MyUYW6eOa4bPp1i493a1nN1Vvi50JG3gVMwLXuEk+pC/cj2bIrXNnef9R961M+aFICQQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\NftShirt\\novaApi\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\NftShirt\\NftShirtServer\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
