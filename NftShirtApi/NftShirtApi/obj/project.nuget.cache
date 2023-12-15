@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dy8jVXfzpmUXZHUeJcJX7hX3PB3Ijm9vjIofD8ZpmOyB1yN31kHs/4I8z8mrpkARDrhPS9P7C4FIJmEw/cVm5A==",
+  "dgSpecHash": "AiLPpMQf48BIH0SPom6H4rNgrDPkQjYk4UiBXjOaTrPS22AyfVK4f5G+JiilL5izPNQRRpNKSICsRgkDcrqiqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\NftShirt\\NftShirtServer\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
+  "projectFilePath": "c:\\Users\\PC\\Desktop\\NftShirt\\NftShirtServer\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\adraffy.ensnormalize\\0.1.5\\adraffy.ensnormalize.0.1.5.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
