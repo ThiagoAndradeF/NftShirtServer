@@ -6,7 +6,7 @@ builder.WebHost.ConfigureKestrel(options => {
     options.ListenLocalhost(5000);
 });
 builder.Services.AddDbContext<NftShirtContext>(options => {
-    options.UseNpgsql("Host=localhost;Port=5432;Database=Cartsy;Username=postgres;Password=3309;Include Error Detail=true");
+    options.UseNpgsql("Host=localhost;Port=5432;Database=NftShirt;Username=postgres;Password=3309;Include Error Detail=true");
 });
 // Add services to the container.
 
