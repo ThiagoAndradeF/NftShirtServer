@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NftShirt.Server", "NftShirt.Server\NftShirt.Server.csproj", "{FABB344C-16DF-4E05-BA3C-47FDC627D197}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "nftshirt.client", "nftshirt.client\nftshirt.client.esproj", "{10AEC89F-35E9-416E-9296-67E73CDDBBEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FABB344C-16DF-4E05-BA3C-47FDC627D197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABB344C-16DF-4E05-BA3C-47FDC627D197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABB344C-16DF-4E05-BA3C-47FDC627D197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABB344C-16DF-4E05-BA3C-47FDC627D197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AEC89F-35E9-416E-9296-67E73CDDBBEA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7421B263-7E54-4A6C-926C-45DAFF52E2A2}
+	EndGlobalSection
+EndGlobal
