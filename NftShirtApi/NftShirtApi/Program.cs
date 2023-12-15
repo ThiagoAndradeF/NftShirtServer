@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NftShirt.Server.Data;
+using NftShirt.Server.Infra.IRepositories;
+using NftShirt.Server.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options => {
@@ -23,7 +25,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+builder.Services.AddScoped<ICollection, Collection>();
+builder.Services.AddScoped<IIten, Iten>();
+builder.Services.AddScoped<INft, Nft>();
+builder.Services.AddScoped<IUser, User>();
+builder.Services.AddScoped<INFtag, NFtag>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

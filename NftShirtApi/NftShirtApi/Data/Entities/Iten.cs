@@ -8,5 +8,5 @@ public class Iten
     public string Descricao { get; set; } = string.Empty;
   
     // Relacionamento com NFTag
-    public virtual ICollection<NFTag> NFTags { get; set; } = default!;
+    public virtual IEnumerable<Nftag> Nftags { get; set; } = default!;
 }

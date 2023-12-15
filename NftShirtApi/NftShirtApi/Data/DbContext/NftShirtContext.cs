@@ -4,8 +4,8 @@ namespace NftShirt.Server.Data;
 public class NftShirtContext : DbContext
 {
     public DbSet<Iten> Itens { get; set; } = null!;
-    public DbSet<NFTag> NFTags { get; set; } = null!;
-    public DbSet<NFT> NFTs { get; set; } = null!;
+    public DbSet<Nftag> Nftags { get; set; } = null!;
+    public DbSet<Nft> Nfts { get; set; } = null!;
     public DbSet<Colection> Colections { get; set; } = null!;
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
@@ -29,7 +29,7 @@ public class NftShirtContext : DbContext
             .IsRequired();
 
         colection
-            .HasMany(c => c.NFTs)
+            .HasMany(c => c.Nfts)
             .WithOne(n => n.Colection)
             .HasForeignKey(n => n.ColectionID);
         
@@ -44,43 +44,43 @@ public class NftShirtContext : DbContext
         iten.Property(i => i.Descricao)
             .IsRequired();
 
-        iten.HasMany(i => i.NFTags)
+        iten.HasMany(i => i.Nftags)
             .WithOne(n => n.Iten)
             .HasForeignKey(n => n.ItenId);
 
-        var nft = modelBuilder.Entity<NFT>();
+        var nft = modelBuilder.Entity<Nft>();
 
-        nft.ToTable("NFTs")
+        nft.ToTable("Nfts")
             .HasKey(n => n.NftHash);
 
         nft.Property(n => n.Metadata);
 
         nft.HasOne(n => n.Colection)
-            .WithMany(c => c.NFTs)
+            .WithMany(c => c.Nfts)
             .HasForeignKey(n => n.ColectionID);
 
         nft.HasOne(n => n.Wallet)
-            .WithMany(w => w.NFTs)
+            .WithMany(w => w.Nfts)
             .HasForeignKey(n => n.WalletID);
 
-        nft.HasMany(n => n.NFTags)
-            .WithOne(nt => nt.NFT)
+        nft.HasMany(n => n.Nftags)
+            .WithOne(nt => nt.Nft)
             .HasForeignKey(nt => nt.NftHash);
 
-        var nftag = modelBuilder.Entity<NFTag>();
+        var nftag = modelBuilder.Entity<Nftag>();
 
-            nftag.ToTable("NFTags")
+            nftag.ToTable("Nftags")
                 .HasKey(nt => nt.LinkTag);
 
             nftag.Property(nt => nt.LinkTag)
                 .IsRequired();
 
             nftag.HasOne(nt => nt.Iten)
-                .WithMany(i => i.NFTags)
+                .WithMany(i => i.Nftags)
                 .HasForeignKey(nt => nt.ItenId);
 
-            nftag.HasOne(nt => nt.NFT)
-                .WithMany(n => n.NFTags)
+            nftag.HasOne(nt => nt.Nft)
+                .WithMany(n => n.Nftags)
                 .HasForeignKey(nt => nt.NftHash);
 
          var user = modelBuilder.Entity<User>();
@@ -112,7 +112,7 @@ public class NftShirtContext : DbContext
                 .WithMany(u => u.Wallets)
                 .HasForeignKey(w => w.UserId);
 
-            wallet.HasMany(w => w.NFTs)
+            wallet.HasMany(w => w.Nfts)
                 .WithOne(n => n.Wallet)
                 .HasForeignKey(n => n.WalletID);
 

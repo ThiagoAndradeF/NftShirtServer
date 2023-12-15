@@ -1,5 +1,5 @@
 namespace NftShirt.Server.Data.Entities;
-public class NFT
+public class Nft
 {
     public string NftHash { get; set; } = string.Empty;
     public int ColectionID { get; set; }
@@ -10,5 +10,5 @@ public class NFT
 
 
     // Relacionamento com NFTag
-    public virtual ICollection<NFTag> NFTags { get; set; } = default!;
+    public virtual IEnumerable<Nftag> Nftags { get; set; } = default!;
 }
