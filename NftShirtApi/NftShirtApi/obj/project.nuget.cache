@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "itiA6aKYY27PRdoITxP2Mmw2N2bc4KRGYOBblD9AuvxOp4hF7/gvAiyKt4QUhcl1wO/M8uwv+w8p+rvHN99iGg==",
+  "dgSpecHash": "iiw3/C/ud2u5QFgml6vZnHnbwV59F82cpTE+dvMllX3nSVT81Ma52C00kZPB8u2W/WQAenLfjtNYcv8c/gqflg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\PC\\Desktop\\NftShirt\\NftShirtServer\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\NftShirt\\NftShirtServer\\NftShirtApi\\NftShirtApi\\NftShirtApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
