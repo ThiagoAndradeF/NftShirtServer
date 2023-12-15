@@ -1,7 +1,6 @@
 namespace NftShirt.Server.Data.Entities;
 public class NFT
 {
-    [Key]
     public string NftHash { get; set; } = string.Empty;
     public int ColectionID { get; set; }
     public int WalletID { get; set; }
