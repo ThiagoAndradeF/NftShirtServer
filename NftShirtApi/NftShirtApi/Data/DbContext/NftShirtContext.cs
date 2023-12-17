@@ -9,6 +9,7 @@ public class NftShirtContext : DbContext
     public DbSet<Colection> Colections { get; set; } = null!;
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Contract> Contracts { get; set; } = null!;
 
     public NftShirtContext(DbContextOptions<NftShirtContext> options)
     : base(options){}
@@ -32,6 +33,10 @@ public class NftShirtContext : DbContext
             .HasMany(c => c.Nfts)
             .WithOne(n => n.Colection)
             .HasForeignKey(n => n.ColectionID);
+        colection
+            .HasOne(c=> c.Contract)
+            .WithMany(n => n.Colections)
+            .HasForeignKey(n => n.ContractId);
         
         var iten = modelBuilder.Entity<Iten>();
         iten.ToTable("Itens")
@@ -51,10 +56,16 @@ public class NftShirtContext : DbContext
         var nft = modelBuilder.Entity<Nft>();
 
         nft.ToTable("Nfts")
-            .HasKey(n => n.NftHash);
+            .HasKey(n => n.TokenId);
 
         nft.Property(n => n.Metadata);
 
+        nft.Property(n => n.TokenId); 
+
+        nft.Property(n => n.TokenURI);
+
+        nft.Property(n => n.OwnerAddress);
+        
         nft.HasOne(n => n.Colection)
             .WithMany(c => c.Nfts)
             .HasForeignKey(n => n.ColectionID);
@@ -66,7 +77,7 @@ public class NftShirtContext : DbContext
         nft.HasMany(n => n.Nftags)
             .WithOne(nt => nt.Nft)
             .HasForeignKey(nt => nt.NftHash);
-
+        
         var nftag = modelBuilder.Entity<Nftag>();
 
             nftag.ToTable("Nftags")
@@ -116,7 +127,21 @@ public class NftShirtContext : DbContext
                 .WithOne(n => n.Wallet)
                 .HasForeignKey(n => n.WalletID);
 
+            var contract = modelBuilder.Entity<Contract>();
 
+            contract.ToTable("Contracts")   
+                .HasKey(c => c.Id);
+
+            contract.Property(c => c.ABI) 
+                .IsRequired();
+
+            contract.Property(c => c.Adress) 
+                .IsRequired();
+
+            contract.HasMany(c => c.Colections)
+                .WithOne(c => c.Contract)
+                .HasForeignKey(c=> c.ContractId);
+            
         
         base.OnModelCreating(modelBuilder);
     }
