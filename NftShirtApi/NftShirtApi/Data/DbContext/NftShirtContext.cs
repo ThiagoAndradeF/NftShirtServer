@@ -132,8 +132,10 @@ public class NftShirtContext : DbContext
             contract.ToTable("Contracts")   
                 .HasKey(c => c.Id);
 
-            contract.Property(c => c.ABI) 
+            contract.Property(c => c.Abi)
+                .HasColumnType("jsonb")
                 .IsRequired();
+                
 
             contract.Property(c => c.Adress) 
                 .IsRequired();
