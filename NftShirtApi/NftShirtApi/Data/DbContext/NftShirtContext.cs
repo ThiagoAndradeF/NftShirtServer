@@ -10,7 +10,7 @@ public class NftShirtContext : DbContext
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Contract> Contracts { get; set; } = null!;
-
+    public AbiConfigure _abiConfigure = new AbiConfigure();
     public NftShirtContext(DbContextOptions<NftShirtContext> options)
     : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ public class NftShirtContext : DbContext
         colection
             .HasOne(c=> c.Contract)
             .WithMany(n => n.Collections)
-            .HasForeignKey(n => n.ContractId);
+            .HasForeignKey(n => n.ContractAdress);
         
         var iten = modelBuilder.Entity<Iten>();
         iten.ToTable("Itens")
@@ -130,21 +130,36 @@ public class NftShirtContext : DbContext
             var contract = modelBuilder.Entity<Contract>();
 
             contract.ToTable("Contracts")   
-                .HasKey(c => c.Id);
+                .HasKey(c => c.Adress);
 
             contract.Property(c => c.Abi)
                 .HasColumnType("jsonb")
                 .IsRequired();
-                
-
-            contract.Property(c => c.Adress) 
-                .IsRequired();
 
             contract.HasMany(c => c.Collections)
                 .WithOne(c => c.Contract)
-                .HasForeignKey(c=> c.ContractId);
-            
-        
+                .HasForeignKey(c=> c.ContractAdress);
+
+
+        modelBuilder.Entity<Contract>().HasData(
+            new Contract
+            {
+                Adress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9",
+                Abi =_abiConfigure.setarAbiFirst()
+                  
+            }
+        );
+        modelBuilder.Entity<Collection>().HasData(
+            new Collection
+            {
+                Id = 1,
+                Name = "Quill and Chill",
+                Description = "Nfts feitas por IA",
+                ContractAdress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9"
+
+            }
+        );
+
         base.OnModelCreating(modelBuilder);
     }
 }

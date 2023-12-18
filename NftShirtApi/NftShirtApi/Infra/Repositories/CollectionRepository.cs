@@ -20,7 +20,7 @@ public class CollectionRepository : ICollectionRepository{
     public Task<bool> CreateAsync(CollectionCreateDto newCollection)
     {
         var contract = _context.Contracts
-            .FirstOrDefault(c => c.Id == newCollection.ContractId);
+            .FirstOrDefault(c => c.Adress == newCollection.Contract.Adress);
         if (contract == null)
         {
             if(newCollection.Contract!= null){

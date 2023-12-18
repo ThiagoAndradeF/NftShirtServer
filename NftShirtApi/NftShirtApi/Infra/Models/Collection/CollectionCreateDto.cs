@@ -5,7 +5,6 @@ namespace  NftShirt.Server.Infra.Models;
 public class CollectionCreateDto{
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string? ContractId {get;set;} = string.Empty;
     public ContractCreateDto Contract { get;set; } = default!;
 
 }
