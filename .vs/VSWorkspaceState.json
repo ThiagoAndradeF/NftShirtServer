@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\NftShirtApi"
+    "\\NftShirtApi",
+    "\\NftShirtApi\\NftShirtApi",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Controller",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\IRepositories",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\Repositories",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Model",
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Services"
   ],
-  "SelectedNode": "\\NftShirtApi\\NftShirtApi.sln",
+  "SelectedNode": "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\Repositories\\PolygonRepository.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -6,7 +6,7 @@ public class NftShirtContext : DbContext
     public DbSet<Iten> Itens { get; set; } = null!;
     public DbSet<Nftag> Nftags { get; set; } = null!;
     public DbSet<Nft> Nfts { get; set; } = null!;
-    public DbSet<Colection> Colections { get; set; } = null!;
+    public DbSet<Collection> Colections { get; set; } = null!;
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Contract> Contracts { get; set; } = null!;
@@ -15,7 +15,7 @@ public class NftShirtContext : DbContext
     : base(options){}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {   
-        var colection = modelBuilder.Entity<Colection>();
+        var colection = modelBuilder.Entity<Collection>();
         colection
             .ToTable("Colections")
             .HasKey(c => c.Id);
@@ -31,11 +31,11 @@ public class NftShirtContext : DbContext
 
         colection
             .HasMany(c => c.Nfts)
-            .WithOne(n => n.Colection)
+            .WithOne(n => n.Collection)
             .HasForeignKey(n => n.ColectionID);
         colection
             .HasOne(c=> c.Contract)
-            .WithMany(n => n.Colections)
+            .WithMany(n => n.Collections)
             .HasForeignKey(n => n.ContractId);
         
         var iten = modelBuilder.Entity<Iten>();
@@ -66,7 +66,7 @@ public class NftShirtContext : DbContext
 
         nft.Property(n => n.OwnerAddress);
         
-        nft.HasOne(n => n.Colection)
+        nft.HasOne(n => n.Collection)
             .WithMany(c => c.Nfts)
             .HasForeignKey(n => n.ColectionID);
 
@@ -140,7 +140,7 @@ public class NftShirtContext : DbContext
             contract.Property(c => c.Adress) 
                 .IsRequired();
 
-            contract.HasMany(c => c.Colections)
+            contract.HasMany(c => c.Collections)
                 .WithOne(c => c.Contract)
                 .HasForeignKey(c=> c.ContractId);
             
