@@ -146,7 +146,6 @@ public class NftShirtContext : DbContext
             {
                 Adress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9",
                 Abi =_abiConfigure.setarAbiFirst()
-                  
             }
         );
         modelBuilder.Entity<Collection>().HasData(
