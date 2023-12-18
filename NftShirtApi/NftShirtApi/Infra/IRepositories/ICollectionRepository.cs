@@ -1,4 +1,6 @@
+using NftShirt.Server.Infra.Models;
+
 namespace  NftShirt.Server.Infra.IRepositories;
 public interface ICollectionRepository{
-    public Task<bool> Create(CollectionCreateDto CollectionCreateDto);
+    public Task<bool> CreateAsync( CollectionCreateDto newCollection);
 }

@@ -1,9 +1,11 @@
 using System.Text.Json.Nodes;
+using NftShirt.Server.Data.Entities;
 
 namespace  NftShirt.Server.Infra.Models;
 public class CollectionCreateDto{
-    public string Adress { get; set; } = string.Empty;
-    public string Id { get; set; } = string.Empty;
-    public JsonArray Abi { get; set; } = default!;
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string? ContractId {get;set;} = string.Empty;
+    public ContractCreateDto Contract { get;set; } = default!;
 
 }

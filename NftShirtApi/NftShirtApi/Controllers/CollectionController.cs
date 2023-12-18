@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NftShirt.Server.Infra.IRepositories;
+using NftShirt.Server.Infra.Models;
 
 namespace NftShirtApi.Controllers
 {
@@ -14,13 +15,13 @@ namespace NftShirtApi.Controllers
         {
             _collectionRepository = collectionRepository;
         }
-        // [HttpPost]
-        // public async Task<ActionResult<bool>> Create( order)
-        // {
-        //     var result = await _orderRepository.CreateOrderWithItemsAndServicesAsync(order);
+        [HttpPost]
+        public async Task<ActionResult<bool>> Create( CollectionCreateDto newCollection)
+        {
+            var result = await _collectionRepository.CreateAsync(newCollection);
             
-        //     if(result) return Ok(order);
-        //     return BadRequest(order);
-        // }
+            if(result) return Ok(newCollection);
+            return BadRequest(newCollection);
+        }
     }
 }

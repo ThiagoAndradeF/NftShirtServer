@@ -26,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IItenRepository, ItenRepository>();
 builder.Services.AddScoped<INftRepository, NftRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
