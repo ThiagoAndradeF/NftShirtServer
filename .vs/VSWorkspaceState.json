@@ -3,14 +3,11 @@
     "",
     "\\NftShirtApi",
     "\\NftShirtApi\\NftShirtApi",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Controller",
     "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\IRepositories",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\Repositories",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Model",
-    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Services"
+    "\\NftShirtApi\\NftShirtApi\\Blockchain\\Services",
+    "\\NftShirtApi\\NftShirtApi\\Data",
+    "\\NftShirtApi\\NftShirtApi\\Migrations"
   ],
-  "SelectedNode": "\\NftShirtApi\\NftShirtApi\\Blockchain\\Infra\\Repositories\\PolygonRepository.cs",
+  "SelectedNode": "\\NftShirtApi\\NftShirtApi\\Data\\DbContext",
   "PreviewInSolutionExplorer": false
 }
