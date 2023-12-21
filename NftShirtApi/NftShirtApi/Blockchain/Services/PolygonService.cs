@@ -1,3 +1,5 @@
+namespace NftShirtApi.Blockchain.Services;
+
 public static class PolygonService{
     private static string _provedorRpc = "https://polygon-rpc.com";
     

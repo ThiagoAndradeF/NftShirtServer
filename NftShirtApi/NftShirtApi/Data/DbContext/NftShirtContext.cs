@@ -144,7 +144,7 @@ public class NftShirtContext : DbContext
         modelBuilder.Entity<Contract>().HasData(
             new Contract
             {
-                Adress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9",
+                Adress = "0x18214613dCc65311Fb7471B61a02825537F87a52",
                 Abi =_abiConfigure.setarAbiFirst()
             }
         );
@@ -152,9 +152,9 @@ public class NftShirtContext : DbContext
             new Collection
             {
                 Id = 1,
-                Name = "Quill and Chill",
-                Description = "Nfts feitas por IA",
-                ContractAdress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9"
+                Name = "Capy WorkFound",
+                Description = "Nftshirt Teste",
+                ContractAdress = "0x18214613dCc65311Fb7471B61a02825537F87a52"
 
             }
         );
