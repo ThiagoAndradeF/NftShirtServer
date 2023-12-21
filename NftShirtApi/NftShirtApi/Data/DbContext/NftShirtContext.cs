@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NftShirt.Server.Data.Entities;
+using NftShirtApi.Blockchain.Services;
 namespace NftShirt.Server.Data;
 public class NftShirtContext : DbContext
 {
@@ -10,10 +11,13 @@ public class NftShirtContext : DbContext
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Contract> Contracts { get; set; } = null!;
-    public AbiConfigure _abiConfigure = new AbiConfigure();
+    private PolygonService _polygonService {get;set;} = new PolygonService();
     public NftShirtContext(DbContextOptions<NftShirtContext> options)
-    : base(options){}
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    : base(options){
+        
+    }
+
+    protected override async void OnModelCreating(ModelBuilder modelBuilder)
     {   
         var colection = modelBuilder.Entity<Collection>();
         colection
@@ -145,7 +149,7 @@ public class NftShirtContext : DbContext
             new Contract
             {
                 Adress = "0x18214613dCc65311Fb7471B61a02825537F87a52",
-                Abi =_abiConfigure.setarAbiFirst()
+                Abi = await _polygonService.getAbiByAdress("0x18214613dCc65311Fb7471B61a02825537F87a52")
             }
         );
         modelBuilder.Entity<Collection>().HasData(
