@@ -159,7 +159,6 @@ public class NftShirtContext : DbContext
                 Name = "Capy WorkFound",
                 Description = "Nftshirt Teste",
                 ContractAdress = "0x18214613dCc65311Fb7471B61a02825537F87a52"
-
             }
         );
 
