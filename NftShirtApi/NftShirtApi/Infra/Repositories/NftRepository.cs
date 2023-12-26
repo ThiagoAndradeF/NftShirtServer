@@ -16,7 +16,6 @@ public class NftRepository: INftRepository{
     }
     public async Task <NftWithCollectionDto> GetNftCompleteByIdAsync(string TokenId)
     {
-
         return _mapper.Map<NftWithCollectionDto>(
             await _context.Nfts
                 .Include(n => n.Collection)

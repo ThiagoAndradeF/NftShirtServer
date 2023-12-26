@@ -4,12 +4,8 @@ using NftShirt.Server.Data.Entities;
 
 namespace  NftShirt.Server.Infra.Models;
 public class NftWithCollectionDto{
-    public string? TokenId { get; set; } = string.Empty;
-    public string? TokenURI { get; set; } = string.Empty;
-    public int? ColectionID { get; set; }
-    public int? WalletID { get; set; }
-    public string? Metadata { get; set; } = string.Empty;
+    public NftDto? Nft { get; set; }
     public CollectionDto? Collection {get;set;}
-    public ContractDto ? ContractDto{get;set;}
+    public ContractDto ? Contract{get;set;}
 
 }
