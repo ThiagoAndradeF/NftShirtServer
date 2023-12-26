@@ -8,6 +8,8 @@ public class ContractProfile : Profile{
     public ContractProfile(){
         CreateMap<Contract, ContractCreateDto>()
             .ReverseMap();
+        CreateMap<Contract, ContractDto>()
+            .ReverseMap();
     }
 }
 

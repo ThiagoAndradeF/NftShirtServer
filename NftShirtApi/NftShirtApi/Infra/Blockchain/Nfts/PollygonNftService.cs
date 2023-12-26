@@ -7,15 +7,15 @@ using Nethereum.Contracts.Standards.ENS.ENSRegistry.ContractDefinition;
 using Nethereum.RPC.Eth.DTOs;
 using NftShirt.Server.Infra.Models;
 
-namespace NftShirtApi.Infra.Blockchain.Nfts;
+namespace NftShirtApi.Infra.Blockchain;
 
-public class NftService{
+public class PollygonNftService{
     private readonly HttpClient _httpClient;
     private readonly string _abi;
     private readonly string _contractAddress;
     private readonly dynamic _web3;
     private NftDto _nftSelected;
-    public NftService(NftDto nftSelected , string abi, string contractAddress){
+    public PollygonNftService(NftDto nftSelected , string abi, string contractAddress){
         _httpClient = new HttpClient();
         _abi = abi;
         _contractAddress = contractAddress;
@@ -78,12 +78,10 @@ public class NftService{
         var transferEventHandler = contract.GetEvent("Transfer");
         var filterInput = transferEventHandler.CreateFilterInput(new BlockParameter(0), BlockParameter.CreateLatest(), tokenId: _nftSelected.TokenId);
         var logs = await transferEventHandler.GetAllChanges<TransferEventDTO>(filterInput);
-        
         if (logs.Count > 0)
         {
             return logs[^1].Event.To; // Retorna o último endereço 'to'
         }
-
         return null; // Nenhuma transação encontrada para este Token ID
     }
 }
