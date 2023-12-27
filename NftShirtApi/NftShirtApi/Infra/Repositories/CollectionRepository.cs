@@ -1,5 +1,6 @@
 
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NftShirt.Server.Data;
 using NftShirt.Server.Data.Entities;
 using NftShirt.Server.Infra.IRepositories;
@@ -38,6 +39,12 @@ public class CollectionRepository : ICollectionRepository{
     public Task<bool> CreateComplete(CollectionCreateDto newCollection)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<CollectionDto>> ListCollectionsAsync()
+    {
+        var collections = await _context.Colections.ToListAsync();
+        return _mapper.Map<IEnumerable<CollectionDto>>(collections);
     }
 
     public async Task<bool> SaveChangesAsync()

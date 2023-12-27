@@ -18,6 +18,7 @@ public class PollygonNftService{
     private string? _contractAddress;
     private dynamic _web3;
     private string _tokenId;
+    private string? _tokenUri;
     public PollygonNftService(INftRepository nftRepository, string tokenId){
         _httpClient = new HttpClient();
         _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
@@ -29,8 +30,8 @@ public class PollygonNftService{
     public async void SetInitValuesAsync(){
         try
         {
-            
             NftWithCollectionDto nftComplete = await _nftRepository.GetNftCompleteByIdAsync(_tokenId);
+            _tokenUri = await GetTokenUriAsync();
             if(nftComplete.Contract != null){
                 _contractAddress = nftComplete.Contract.Adress;
             }else{
@@ -42,9 +43,9 @@ public class PollygonNftService{
                 _abi = await GetAbiByAdress();
             }
         }
-        catch (System.Exception)
+        catch (Exception ex)
         {
-            throw new Exception("Erro ocorrido ao resgatar valores pelo banco de dados");
+            throw new Exception("Erro ocorrido ao vincular valores: " + ex.Message);
         }
         
     }
@@ -77,22 +78,6 @@ public class PollygonNftService{
         return await _web3.Eth.GetContract(_abi, _contractAddress);
     }  
 
-    public  async Task<string> getTokenByUriAndIdAsync (){
-
-        try
-        {
-            var contract = await GetContractAsync();
-            var tokenUri = await GetTokenUriAsync();
-            var function = contract.GetFunction(tokenUri);
-            return await function.CallAsync<string>(_tokenId);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Problema ao adquirir metadados desse token : {ex.Message}");
-        }
-        
-    }  
-
     [Event("Transfer")]
     public class TransferEventDTO : IEventDTO
     {
@@ -105,6 +90,9 @@ public class PollygonNftService{
         [Parameter("uint256", "tokenId", 3, true)]
         public AnyType TokenId { get; set; }
     }
+
+
+
     public async Task<string> GetTokenUriAsync()
     {
         try
