@@ -91,8 +91,6 @@ public class PollygonNftService{
         public AnyType TokenId { get; set; }
     }
 
-
-
     public async Task<string> GetTokenUriAsync()
     {
         try
