@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.OpenApi.Any;
+using Nethereum.ABI.FunctionEncoding;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts.QueryHandlers.MultiCall;
 using Nethereum.Contracts.Standards.ENS.ENSRegistry.ContractDefinition;
@@ -10,7 +11,6 @@ using NftShirt.Server.Infra.IRepositories;
 using NftShirt.Server.Infra.Models;
 
 namespace NftShirtApi.Infra.Blockchain;
-
 public class PollygonNftService{
     private readonly HttpClient _httpClient;
     private readonly INftRepository _nftRepository;
@@ -18,34 +18,29 @@ public class PollygonNftService{
     private string? _contractAddress;
     private dynamic _web3;
     private string _tokenId;
-    private NftDto _nftSelected;
-
-    // public PollygonNftService(NftDto nftSelected , string contractAddress ){
-    //     _httpClient = new HttpClient();
-    //     _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
-    //     _contractAddress = contractAddress;
-    //     getAbiByAdress();
-    //     _nftSelected = nftSelected;
-    // }
-    
     public PollygonNftService(INftRepository nftRepository, string tokenId){
         _httpClient = new HttpClient();
+        _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
         _tokenId = tokenId;
         _nftRepository = nftRepository;
-        setarValoresPorBanco(tokenId);
+        SetInitValuesAsync();
     }
-    public async void setarValoresPorBanco(string tokenId){
+
+    public async void SetInitValuesAsync(){
         try
         {
-            _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
-            NftWithCollectionDto nftComplete = await _nftRepository.GetNftCompleteByIdAsync(tokenId);
-            _contractAddress = nftComplete.Contract.Adress;
-            if ( nftComplete.Contract.Abi.ToString() == null){
+            
+            NftWithCollectionDto nftComplete = await _nftRepository.GetNftCompleteByIdAsync(_tokenId);
+            if(nftComplete.Contract != null){
+                _contractAddress = nftComplete.Contract.Adress;
+            }else{
+                throw new Exception("Erro ocorrido ao resgatar o adress do contrato no banco de dados");
+            }
+            if ( nftComplete.Contract.Abi.ToString() != null){
                 _abi = nftComplete.Contract.Abi.ToString();
             }else{
-                getAbiByAdress();
+                _abi = await GetAbiByAdress();
             }
-            _nftSelected = nftComplete.Nft;
         }
         catch (System.Exception)
         {
@@ -55,7 +50,7 @@ public class PollygonNftService{
     }
 
 
-    public async Task<string> getAbiByAdress(){
+    public async Task<string> GetAbiByAdress(){
         string url = $"https://api.polygonscan.com/api?module=contract&action=getabi&address={_contractAddress}";
         try
         {
@@ -78,35 +73,52 @@ public class PollygonNftService{
 
     }
     
-    public async Task<dynamic>  getContractAsync(){
+    public async Task<dynamic>  GetContractAsync(){
         return await _web3.Eth.GetContract(_abi, _contractAddress);
     }  
 
     public  async Task<string> getTokenByUriAndIdAsync (){
 
-        var contract = await getContractAsync();
-        var function = contract.GetFunction(_nftSelected.TokenURI);
-        return await function.CallAsync<string>(_nftSelected.TokenId);
+        try
+        {
+            var contract = await GetContractAsync();
+            var tokenUri = await GetTokenUriAsync();
+            var function = contract.GetFunction(tokenUri);
+            return await function.CallAsync<string>(_tokenId);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Problema ao adquirir metadados desse token : {ex.Message}");
+        }
+        
     }  
 
     [Event("Transfer")]
     public class TransferEventDTO : IEventDTO
     {
         [Parameter("address", "from", 1, true)]
-        public string From { get; set; }
+        public string From { get; set; } = string.Empty;
 
         [Parameter("address", "to", 2, true)]
-        public string To { get; set; }
+        public string To { get; set; } = string.Empty;
 
         [Parameter("uint256", "tokenId", 3, true)]
         public AnyType TokenId { get; set; }
     }
     public async Task<string> GetTokenUriAsync()
     {
-        var contract = _web3.Eth.GetContract(_abi, _tokenId);
-        var tokenURIFunction = contract.GetFunction("tokenURI");
-        var tokenURI = await tokenURIFunction.CallAsync<string>(_tokenId);
-        return tokenURI;
+        try
+        {
+            var contract = _web3.Eth.GetContract(_abi, _tokenId);
+            var tokenURIFunction = contract.GetFunction("tokenURI");
+            var tokenURI = await tokenURIFunction.CallAsync<string>(_tokenId);
+            return tokenURI;
+        }
+        catch (Exception ex)
+        {
+            
+            throw new Exception($"Problema ao encontrar URI desse token : {ex.Message}");
+        }
     }
     
     
@@ -114,7 +126,7 @@ public class PollygonNftService{
     {
         var contract = _web3.Eth.GetContract(_abi, _contractAddress);
         var transferEventHandler = contract.GetEvent("Transfer");
-        var filterInput = transferEventHandler.CreateFilterInput(new BlockParameter(0), BlockParameter.CreateLatest(), tokenId: _nftSelected.TokenId);
+        var filterInput = transferEventHandler.CreateFilterInput(new BlockParameter(0), BlockParameter.CreateLatest(), tokenId: _tokenId);
         var logs = await transferEventHandler.GetAllChanges<TransferEventDTO>(filterInput);
         if (logs.Count > 0)
         {
