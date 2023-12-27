@@ -16,7 +16,7 @@ public class PollygonNftService{
     private readonly INftRepository _nftRepository;
     private string? _abi;
     private string? _contractAddress;
-    private dynamic? _web3;
+    private dynamic _web3;
     private string _tokenId;
     private NftDto _nftSelected;
 
@@ -120,7 +120,9 @@ public class PollygonNftService{
         {
             return logs[^1].Event.To; // Retorna o último endereço 'to'
         }
-        return null; // Nenhuma transação encontrada para este Token ID
+        var ownerOfFunction = contract.GetFunction("ownerOf");
+        string ownerAddress = await ownerOfFunction.CallAsync<string>(_tokenId);
+        return ownerAddress; // Nenhuma transação encontrada para este Token ID retorna endereço do owner
     }
 
 
