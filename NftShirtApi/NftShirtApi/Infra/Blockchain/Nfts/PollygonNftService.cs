@@ -13,20 +13,24 @@ namespace NftShirtApi.Infra.Blockchain;
 
 public class PollygonNftService{
     private readonly HttpClient _httpClient;
+    private readonly INftRepository _nftRepository;
     private string? _abi;
     private string? _contractAddress;
     private dynamic? _web3;
-    private readonly INftRepository _nftRepository;
+    private string _tokenId;
     private NftDto _nftSelected;
-    public PollygonNftService(NftDto nftSelected , string contractAddress ){
-        _httpClient = new HttpClient();
-        _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
-        getAbiByAdress();
-        _contractAddress = contractAddress;
-        _nftSelected = nftSelected;
-    }
+
+    // public PollygonNftService(NftDto nftSelected , string contractAddress ){
+    //     _httpClient = new HttpClient();
+    //     _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
+    //     _contractAddress = contractAddress;
+    //     getAbiByAdress();
+    //     _nftSelected = nftSelected;
+    // }
+    
     public PollygonNftService(INftRepository nftRepository, string tokenId){
         _httpClient = new HttpClient();
+        _tokenId = tokenId;
         _nftRepository = nftRepository;
         setarValoresPorBanco(tokenId);
     }
@@ -97,6 +101,14 @@ public class PollygonNftService{
         [Parameter("uint256", "tokenId", 3, true)]
         public AnyType TokenId { get; set; }
     }
+    public async Task<string> GetTokenUriAsync()
+    {
+        var contract = _web3.Eth.GetContract(_abi, _tokenId);
+        var tokenURIFunction = contract.GetFunction("tokenURI");
+        var tokenURI = await tokenURIFunction.CallAsync<string>(_tokenId);
+        return tokenURI;
+    }
+    
     
     public async Task<string> GetCurrentWalletAddressAsync()
     {
@@ -110,4 +122,8 @@ public class PollygonNftService{
         }
         return null; // Nenhuma transação encontrada para este Token ID
     }
+
+
+
+    
 }
