@@ -47,10 +47,8 @@ public class PollygonNftService{
         {
             throw new Exception("Erro ocorrido ao vincular valores: " + ex.Message);
         }
-        
     }
-
-
+    
     public async Task<string> GetAbiByAdress(){
         string url = $"https://api.polygonscan.com/api?module=contract&action=getabi&address={_contractAddress}";
         try
