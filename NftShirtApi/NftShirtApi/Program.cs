@@ -23,6 +23,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<INftagRepository, NftagRepository>();
 builder.Services.AddScoped<INftRepository, NftRepository>();
 builder.Services.AddScoped<IPollygonContractService, PollygonContractService>();
+builder.Services.AddScoped<IPollygonNftService, PollygonNftService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

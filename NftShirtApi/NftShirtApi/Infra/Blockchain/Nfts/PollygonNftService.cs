@@ -12,7 +12,13 @@ using NftShirt.Server.Infra.IRepositories;
 using NftShirt.Server.Infra.Models;
 
 namespace NftShirtApi.Infra.Blockchain;
-public class PollygonNftService{
+
+
+public interface IPollygonNftService{
+    public Task<string>  GetTokenUriAsync();
+    public Task<string>  GetCurrentWalletAddressAsync();
+}
+public class PollygonNftService : IPollygonNftService{
     private readonly HttpClient _httpClient;
     private readonly INftRepository _nftRepository;
     private string? _abi;
@@ -20,7 +26,7 @@ public class PollygonNftService{
     private dynamic _web3;
     private string _tokenId;
     private string? _tokenUri;
-    public PollygonNftService(INftRepository nftRepository, string tokenId){
+    public PollygonNftService(INftRepository nftRepository, string tokenId = "1"){
         _httpClient = new HttpClient();
         _web3 = new Nethereum.Web3.Web3("https://polygon-rpc.com");
         _tokenId = tokenId;
@@ -120,8 +126,4 @@ public class PollygonNftService{
         string ownerAddress = await ownerOfFunction.CallAsync<string>(_tokenId);
         return ownerAddress; // Nenhuma transação encontrada para este Token ID retorna endereço do owner
     }
-
-
-
-    
 }

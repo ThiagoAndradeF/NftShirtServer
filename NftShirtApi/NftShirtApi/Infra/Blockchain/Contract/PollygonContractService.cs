@@ -53,8 +53,5 @@ public class PollygonContractService : IPollygonContractService{
         return await _web3.Eth.GetContract(abi, contractAddress);
     }  
 
-
-
-
     
 }
