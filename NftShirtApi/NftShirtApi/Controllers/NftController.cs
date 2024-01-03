@@ -17,12 +17,12 @@ namespace NftShirtApi.Controllers
             _polygonNftService = pollygonNftService;
         }
 
-        [HttpGet("{tokenId}")]
-        public async Task<ActionResult<string>> GetAlllCollections(string storeMail)
+        [HttpGet("{tokenId}/{contractAdress}")]
+        public async Task<ActionResult<string>> GetTokenUriAsync(string tokenId, string contractAdress)
         {
             try
             {
-                var listColection = await _polygonNftService.GetTokenUriAsync();
+                var listColection = await _polygonNftService.GetTokenUriAsync(tokenId, contractAdress);
                 if (listColection == null)
                 {
                     return NotFound();
@@ -31,7 +31,6 @@ namespace NftShirtApi.Controllers
             }
             catch (System.Exception ex)
             {
-                
                 throw new Exception( ex.Message);
             }
         }
