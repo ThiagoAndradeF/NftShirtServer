@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NftShirtApi.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class nomeMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -145,16 +145,6 @@ namespace NftShirtApi.Migrations
                         principalColumn: "TokenId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Contracts",
-                columns: new[] { "Adress", "Abi" },
-                values: new object[] { "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9", "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]" });
-
-            migrationBuilder.InsertData(
-                table: "Colections",
-                columns: new[] { "Id", "ContractAdress", "Description", "Name" },
-                values: new object[] { 1, "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9", "Nfts feitas por IA", "Quill and Chill" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Colections_ContractAdress",

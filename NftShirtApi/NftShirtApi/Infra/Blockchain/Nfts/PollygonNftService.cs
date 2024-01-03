@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.OpenApi.Any;
@@ -26,7 +27,6 @@ public class PollygonNftService{
         _nftRepository = nftRepository;
         SetInitValuesAsync();
     }
-
     public async void SetInitValuesAsync(){
         try
         {

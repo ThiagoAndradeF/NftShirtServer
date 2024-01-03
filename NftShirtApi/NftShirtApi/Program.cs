@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NftShirt.Server.Data;
 using NftShirt.Server.Infra.IRepositories;
 using NftShirt.Server.Infra.Repositories;
+using NftShirtApi.Infra.Blockchain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +19,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IItenRepository, ItenRepository>();
-builder.Services.AddScoped<INftRepository, NftRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<INftagRepository, NftagRepository>();
+builder.Services.AddScoped<INftRepository, NftRepository>();
+builder.Services.AddScoped<IPollygonContractService, PollygonContractService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

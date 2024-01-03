@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NftShirt.Server.Data.Entities;
-using NftShirtApi.Blockchain.Services;
+using NftShirt.Server.Infra.IRepositories;
+using NftShirt.Server.Infra.Repositories;
+using NftShirtApi.Infra.Blockchain;
 namespace NftShirt.Server.Data;
 public class NftShirtContext : DbContext
 {
@@ -11,10 +13,11 @@ public class NftShirtContext : DbContext
     public DbSet<Wallet> Wallets { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Contract> Contracts { get; set; } = null!;
-    private PolygonService _polygonService {get;set;} = new PolygonService();
-    public NftShirtContext(DbContextOptions<NftShirtContext> options)
+    private IPollygonContractService _pollygonContractService ;
+    public NftShirtContext(DbContextOptions<NftShirtContext> options )
     : base(options){
-        
+        var pollygonContractService = new PollygonContractService();
+        _pollygonContractService = pollygonContractService;
     }
 
     protected override async void OnModelCreating(ModelBuilder modelBuilder)
@@ -148,8 +151,8 @@ public class NftShirtContext : DbContext
         modelBuilder.Entity<Contract>().HasData(
             new Contract
             {
-                Adress = "0x18214613dCc65311Fb7471B61a02825537F87a52",
-                Abi = await _polygonService.getAbiByAdress("0x18214613dCc65311Fb7471B61a02825537F87a52")
+                Adress = "0x090d3648283FE5B7EC568FD9bf56CF0f48f7685e",
+                Abi = await _pollygonContractService.GetAbiByAdress("0x090d3648283FE5B7EC568FD9bf56CF0f48f7685e")
             }
         );
         modelBuilder.Entity<Collection>().HasData(
@@ -158,7 +161,7 @@ public class NftShirtContext : DbContext
                 Id = 1,
                 Name = "Capy WorkFound",
                 Description = "Nftshirt Teste",
-                ContractAdress = "0x18214613dCc65311Fb7471B61a02825537F87a52"
+                ContractAdress = "0x090d3648283FE5B7EC568FD9bf56CF0f48f7685e"
             }
         );
 

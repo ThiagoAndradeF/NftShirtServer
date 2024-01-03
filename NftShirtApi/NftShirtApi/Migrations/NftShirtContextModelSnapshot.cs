@@ -47,15 +47,6 @@ namespace NftShirtApi.Migrations
                     b.HasIndex("ContractAdress");
 
                     b.ToTable("Colections", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ContractAdress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9",
-                            Description = "Nfts feitas por IA",
-                            Name = "Quill and Chill"
-                        });
                 });
 
             modelBuilder.Entity("NftShirt.Server.Data.Entities.Contract", b =>
@@ -70,13 +61,6 @@ namespace NftShirtApi.Migrations
                     b.HasKey("Adress");
 
                     b.ToTable("Contracts", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Adress = "0xdF83a9754Ab29c0B14B0e43c5B7E02b85b4fA7F9",
-                            Abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
-                        });
                 });
 
             modelBuilder.Entity("NftShirt.Server.Data.Entities.Iten", b =>

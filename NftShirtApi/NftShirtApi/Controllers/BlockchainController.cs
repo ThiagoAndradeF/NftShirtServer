@@ -7,7 +7,6 @@ namespace NftShirtApi.Controllers
     public class BlockchainController : ControllerBase
     {
         public string  _connectionPollygon = "https://polygon-rpc.com";
-        
 
     }
 }
