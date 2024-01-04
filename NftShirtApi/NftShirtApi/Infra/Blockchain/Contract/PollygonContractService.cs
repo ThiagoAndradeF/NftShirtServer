@@ -27,6 +27,7 @@ public class PollygonContractService : IPollygonContractService{
     
     public async Task<string> GetAbiByAdress(string contractAddress){
         string url = $"https://api.polygonscan.com/api?module=contract&action=getabi&address={contractAddress}";
+        Console.WriteLine($"Link do request da abi: {url}");
         try
         { 
             HttpResponseMessage response = await _httpClient.GetAsync(url);
@@ -49,8 +50,16 @@ public class PollygonContractService : IPollygonContractService{
     }
     
     public async Task<dynamic>  GetContractAsync(string contractAddress){
-        string abi = await GetAbiByAdress(contractAddress);
-        return await _web3.Eth.GetContract(abi, contractAddress);
+        try{
+            string abi = await GetAbiByAdress(contractAddress);
+            var contract = await _web3.Eth.GetContract(abi, contractAddress); 
+            Console.WriteLine(contract);
+            return contract;
+        }
+        catch(Exception e){
+             throw new Exception($"Erro ao obter contrato: {e.Message}");
+        }
+        
     }  
 
     
