@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -33,25 +34,13 @@ public class PollygonNftService : IPollygonNftService{
         _pollygonContractService = pollygonContractService; 
         // SetInitValuesAsync();
     }
-    [Event("Transfer")]
-    public class TransferEventDTO : IEventDTO
-    {
-        [Parameter("address", "from", 1, true)]
-        public string From { get; set; } = string.Empty;
-
-        [Parameter("address", "to", 2, true)]
-        public string To { get; set; } = string.Empty;
-
-        [Parameter("uint256", "tokenId", 3, true)]
-        public AnyType TokenId { get; set; }
-    }
-
+    
     public async Task<string> GetTokenUriAsync(string tokenId, string contractAddress)
     {
         try
         {
             var contract =  await _pollygonContractService.GetContractAsync(contractAddress);
-            var tokenURIFunction = contract.GetFunction("tokenURI");
+            var tokenURIFunction = contract.GetFunction("uri");
             var tokenURI = await tokenURIFunction.CallAsync<string>(tokenId);
             return tokenURI;
         }
@@ -64,16 +53,41 @@ public class PollygonNftService : IPollygonNftService{
     
     public async Task<string> GetCurrentWalletAddressAsync(string tokenId, string contractAddress)
     {
-        var contract =  await _pollygonContractService.GetContractAsync(contractAddress);
-        var transferEventHandler = contract.GetEvent("Transfer");
-        var filterInput = transferEventHandler.CreateFilterInput(new BlockParameter(0), BlockParameter.CreateLatest(), tokenId: tokenId);
-        var logs = await transferEventHandler.GetAllChanges<TransferEventDTO>(filterInput);
-        if (logs.Count > 0)
+        try
         {
-            return logs[^1].Event.To; // Retorna o último endereço 'to'
+            BigInteger tokenBigInt = BigInteger.Parse(tokenId);
+            var contract = await _pollygonContractService.GetContractAsync(contractAddress);
+            var transferSingleEvent = contract.GetEvent("TransferSingle");
+            var filterInput = transferSingleEvent.CreateFilterInput(new BlockParameter(0), BlockParameter.CreateLatest(), new object[] { null, null, null, tokenBigInt });
+            var logs = await transferSingleEvent.GetAllChanges<TransferSingleEventDTO>(filterInput);
+
+            if (logs.Any())
+            {
+                return logs.Last().Event.To; // Retorna o último endereço 'to'
+            }
+
+            return null; // Se não houver logs de transferência, não é possível determinar o proprietário atual
         }
-        var ownerOfFunction = contract.GetFunction("ownerOf");
-        string ownerAddress = await ownerOfFunction.CallAsync<string>(tokenId);
-        return ownerAddress; // Nenhuma transação encontrada para este Token ID retorna endereço do owner
+        catch (Exception ex)
+        {
+            throw new Exception($"Erro ao obter o endereço da carteira atual: {ex.Message}");
+        }
+    }
+    public class TransferSingleEventDTO : IEventDTO
+    {
+        [Parameter("address", "_operator", 1, true)]
+        public string Operator { get; set; }
+
+        [Parameter("address", "_from", 2, true)]
+        public string From { get; set; }
+
+        [Parameter("address", "_to", 3, true)]
+        public string To { get; set; }
+
+        [Parameter("uint256", "_id", 4, true)]
+        public BigInteger TokenId { get; set; }
+
+        [Parameter("uint256", "_value", 5, false)]
+        public BigInteger Value { get; set; }
     }
 }
