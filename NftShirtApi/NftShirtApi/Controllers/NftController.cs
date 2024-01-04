@@ -35,11 +35,11 @@ namespace NftShirtApi.Controllers
             }
         }
         [HttpGet("getCurrentWallet/{tokenId}/{contractAdress}")]
-        public async Task<ActionResult<string>> GetCurrentWalletAddressAsync(string tokenId, string contractAdress)
+        public async Task<ActionResult<string>> GetCurrentWalletAddressAc(int tokenId, string contractAdress)
         {
             try
             {
-                var listColection = await _polygonNftService.GetCurrentWalletAddressAsync(tokenId, contractAdress);
+                var listColection = await _polygonNftService.GetCurrentWalletAddressAc(tokenId, contractAdress);
                 if (listColection == null)
                 {
                     return NotFound();
